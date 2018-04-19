@@ -12,14 +12,11 @@ import java.util.Scanner;
 public final class Logger {
 	
 	private final static String fpath = System.getProperty("user.dir") + "/logs.txt";
-	private static Logger instance;
+	public static Logger instance;
 	
 	// constructor
-	public Logger(){
-		if (instance != null){
-			//Prevent multiple instances from being created
-			throw new IllegalStateException("Cannot instantiate a new singleton instance of Logger");
-		}
+	private Logger(){
+		instance = this;
 		this.createLogFile();
 	}
 	
@@ -82,6 +79,8 @@ public final class Logger {
 		String inputStr = "";
 		Scanner input = new Scanner(System.in);
 		Logger l = new Logger();
+		
+		Logger l2 = new Logger();
 		
 		while (true){
 			System.out.println("Select from the following options or type 'quit' to exit\n "
