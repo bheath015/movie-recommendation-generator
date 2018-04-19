@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Program {
 	
 	
+	// Main loop of our program
 	public static void main(String[] args){
 		
 		String inputStr = "";

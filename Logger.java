@@ -2,7 +2,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 
 /*
  * Singleton logger that prevents creation of more than
@@ -32,11 +31,10 @@ public final class Logger {
 	// checks if file exists
 	private boolean fileExists(){
 		File f = new File(fpath);
-		
 		if(f.exists() && !f.isDirectory()) { 
-			System.out.println("File already exists");
 			return true;
 		}
+		
 		return false;
 	}
 	
@@ -72,45 +70,5 @@ public final class Logger {
 		catch (IOException e){
 			e.printStackTrace();
 		}
-	}
-	
-	
-	public static void main(String[] args){
-		String inputStr = "";
-		Scanner input = new Scanner(System.in);
-		Logger l = new Logger();
-		
-		Logger l2 = new Logger();
-		
-		while (true){
-			System.out.println("Select from the following options or type 'quit' to exit\n "
-					+ "1) Enter user id and movie id\n "
-					+ "2) Enter user id and threshold \n");
-			
-			inputStr = input.nextLine();
-			
-			if (inputStr.toLowerCase().equals("quit")){
-				input.close();
-				break;
-			}
-			
-			if (Integer.parseInt(inputStr) == 1){
-				System.out.println("Enter id and movie");
-				inputStr = input.nextLine();
-				l.appendToFile(inputStr);
-			}
-			
-			else if (Integer.parseInt(inputStr) == 2){
-				System.out.println("Enter id and threshold");
-				inputStr = input.nextLine();
-				l.appendToFile(inputStr);
-			}
-			
-			else {
-				System.out.println("Invalid input, please try again");
-			}
-			
-		}
-
 	}
 }
