@@ -1,1 +1,22 @@
 # movie-recommendation-generator
+
+Welcome to our movie recommendation program. The purpose of this program is to provide users with a projection as to what they would rate a movie that they have not seen based on their past reviews, and to provide viewers with a list of movies that they would theoretically rate the highest based on past reviews. To accomplish this, we leverage a database of movie information and past user reviews of films. With the help of a few formulas, we organize neighbors of like minded reviewers and base film recommendations off the reviews of viewers' peers.
+
+To use our program, you can enter in a user and movie for a projected rating or a user and an integer for a list of the projected highest rated movies. The program class with the main function creates a Predictor class which in turn creates an object of type SimilarityCalculator. During the first run of the program, the SimilarityCalculator creates objects of types MovieLibrary and UserDirectory to read in the files and create hash maps of user id to user information (stored in a user object) and movie id to movie information (stored in a movie object). We use Pearson correlation to calculate users most similar to the user that was input (or neighbors), then we use their rating information to generate recommendations. We continue this loop for as long as the user desires until the user types in "quit".
+
+Within our program, we implemented three design patterns excluding the Singleton from part two (explained in detail in the previous readme which is copied below). The are:
+
+*3-Tiered Architecture: 
+
+We implemented a three tiered architecture to help us organize our program into logical layers and limit the amount of interface between layers that were not tied together programmatically. 
+-The Presentation layer is our Program class. This class is responsible for providing the user with an easy to use interface that allows them to begin making requests with the data organization and computation mechanisms abstracted away. 
+-The Controller layer is comprised of our Predictor and SimilarityCalculator classes. This layer receives an instruction and inputs from the Presentation layer and uses data from the Data layer to perform accurate analysis of user predictions. This layer does not interact with the client nor does it interact directly with the data sets. It simply accesses data structures with necessary information about movies/users and manipulates that data to perform its computations. 
+-The Data layer is comprised of our UserDirectory, MovieLibrary, and necessary Reader classes. The UserDirectory and MovieLibrary direct the Reader to take in files and they then create data structures with information about the files input to the SimilarityCalculator for analysis. The Data tier does not interact with the client and is not concerned about computation in the Controller tier; it just reads in data and makes it accessible.
+
+*Concrete Factory:
+ 
+We implement a concrete factory in our Data tier to help with selecting the correct reader class to take in data files. Both the UserDirectory and the MovieLibrary classes do not directly select the reader they need. Instead, they pass the filename to a ReaderFactory which checks the first line of the file and depending on how its lines are formatted, returns the correct reader to the requesting class. This is helpful because classes that need information read do not have to worry about which type of reader to use, just that they need a reader of interface Reader and the factory returns a new object of the appropriate type. 
+
+*Observer: 
+
+We implement an observer within the reader classes that interact with the MovieLibrary and the UserDirectory. The purpose of the observer design pattern implemented here is to check that there are no further updates to the data files. If they change, for example, because a user reviewed a new film, then it is imperative that the classes that rely on the data are alerted so that they can update any instances they possess that they rely on to make predictions. There is a loop in each reader file that, every few minutes, checks the last line of the input files to ensure that they have not changed. Observer classes are also periodically checking to see if there is an update to the data files. They do this by checking periodically that the update boolean in the reader files has not changed. If it has changed, then the data structures in the observers are refreshed. 
