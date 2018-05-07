@@ -1,3 +1,7 @@
+/*
+ * This class represents a movie. It includes
+ * all information that we can receive about a movie
+ */
 import java.util.ArrayList;
 
 public class Movie {
@@ -14,18 +18,30 @@ public class Movie {
 		genres = genresInput;
 	}
 	
+	/*
+	 * Getter for movieID
+	 */
 	public int getMovieID() {
 		return movieID;
 	}
 	
+	/*
+	 * Getter for title
+	 */
 	public String getTitle() { 
 		return title;
 	}
 	
+	/*
+	 * Getter for movie year
+	 */
 	public int getYear() {
 		return year;
 	}
 	
+	/**
+	 * Getter for genre
+	 */
 	public ArrayList<String> getGenres() {
 		return genres;
 	}

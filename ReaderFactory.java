@@ -1,3 +1,11 @@
+/**
+ * This class represents a concrete factory
+ * for returning reader objects. It takes in a filename
+ * and checks the format of the file. Based on which format
+ * the first line is written as, the factory returns
+ * the appropriate reader that will splice the text.
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
