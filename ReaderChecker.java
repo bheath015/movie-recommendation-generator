@@ -12,14 +12,13 @@ public class ReaderChecker implements InterObservable {
 	}
 	
 	/*
-	 * This method is a loop that checks to see if an update
+	 * This method checks to see if an update
 	 * was made to the file it is responsible for reading.
 	 * If a line was added, then it notifies observers.
 	 */
 	public int checkChanges(String fileName, int lastLineCount) {
 		int lineCount = 0;
 			if (lastLineCount != getLength(fileName)) {
-				System.out.printf("%s %d %d\n", fileName, lastLineCount, lineCount);
 				notifyObservers();
 			}
 			return lineCount;
@@ -50,6 +49,11 @@ public class ReaderChecker implements InterObservable {
 		}
 	}
 
+	/**
+	 * Returns the length of the file sent in as a parameter
+	 * @param fileName is the file to check
+	 * @return the number of lines
+	 */
 	public int getLength(String fileName) {
 		Scanner in;
 		File currentFile = new File(fileName);
